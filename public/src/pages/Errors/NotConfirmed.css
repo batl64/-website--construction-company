@@ -1,0 +1,7 @@
+.notConfirmed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    font-size:40px;
+}

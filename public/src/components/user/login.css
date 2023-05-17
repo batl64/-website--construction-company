@@ -1,0 +1,22 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+@media (min-width:420px) {
+    .form-login form {
+        width: 30vw;
+        margin-left:15px;
+        padding-right:15px;
+    }
+}
+.registration {
+    display: flex;
+    justify-content: center;
+}
+
+.back-color {
+    background: white !important;
+}
