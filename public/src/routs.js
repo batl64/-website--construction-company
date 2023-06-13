@@ -103,12 +103,16 @@ class Routs extends React.Component {
                 <Route
                   exact
                   path={"/login"}
-                  render={() => <Login {...this.props} />}
+                  render={() => (
+                    <Login {...store} {...this.props} {...this.state} />
+                  )}
                 />
                 <Route
                   exact
                   path={"/registration"}
-                  render={() => <Registration {...this.props} />}
+                  render={() => (
+                    <Registration {...store} {...this.props} {...this.state} />
+                  )}
                 />
                 <Route
                   exact
@@ -120,7 +124,9 @@ class Routs extends React.Component {
                 <Route
                   exact
                   path={"/"}
-                  render={(props) => <MainPage {...store} {...this.props} />}
+                  render={(props) => (
+                    <MainPage {...store} {...this.props} {...this.state} />
+                  )}
                 />
                 {store.getState().user.isAuth ? (
                   <>
@@ -129,21 +135,29 @@ class Routs extends React.Component {
                       exact
                       path={"/userPage"}
                       render={(props) => (
-                        <UserPage {...store} {...this.props} />
+                        <UserPage {...store} {...this.props} {...this.state} />
                       )}
                     />
                     <Route
                       exact
                       path={"/projectDeteils/:id"}
                       render={(props) => (
-                        <ProjectDeteils {...store} {...this.props} />
+                        <ProjectDeteils
+                          {...store}
+                          {...this.props}
+                          {...this.state}
+                        />
                       )}
                     />
                     <Route
                       exact
                       path={"/Deteils/:id"}
                       render={(props) => (
-                        <OpenProjectDetails {...store} {...this.props} />
+                        <OpenProjectDetails
+                          {...store}
+                          {...this.props}
+                          {...this.state}
+                        />
                       )}
                     />
                   </>

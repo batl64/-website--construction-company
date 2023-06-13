@@ -23,14 +23,14 @@ const Footer = (props) => {
           textDecoration: "none",
         }}
       >
-        LOGO
+        {props?.setting?.nameSite}
       </Typography>
       <nav class="navbar navbar-expand navbar-light">
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="/about">
-                About
+                {translate("about")}
               </a>
             </li>
           </ul>

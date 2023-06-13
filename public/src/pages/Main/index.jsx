@@ -23,7 +23,7 @@ const MainPage = (props) => {
               <a href="/registration" class="btn btn-dark mr-3">
                 {translate("ButtonRegister")}
               </a>
-              <a href="/registration" class="btn btn-dark text-center">
+              <a href="/about" class="btn btn-dark text-center">
                 {translate("ButtonAboutUs")}
               </a>
             </div>

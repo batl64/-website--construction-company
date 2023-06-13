@@ -4,6 +4,10 @@ import "./login.css";
 import { respons } from "../../servises/index.js";
 import { connect } from "react-redux";
 import { setUserData } from "../../redux/auth-reducer.js";
+
+import Header from "../../components/header/Header.jsx";
+import { TextField } from "@material-ui/core";
+
 export class login extends Component {
   constructor(props) {
     super(props);
@@ -91,33 +95,45 @@ export class login extends Component {
       }
     }
     return (
-      <div className="login">
-        <div className="form-login rounded border border-dark back-color">
-          <form onSubmit={this.handleSubmit}>
-            <div className="my-3">
-              <span>{translate("login")}</span>
-              <input
-                type="text"
-                name="login"
-                value={this.login}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+      <div className="Login">
+        <Header {...this.props} className="header-login" />
+        <div className="login">
+          <img
+            src="../../../public/image/backgroundMain.jpg"
+            className="image-login-background"
+          />
+          <div className="form-login rounded border border-dark back-color">
+            <form onSubmit={this.handleSubmit}>
+              <div className="my-3">
+                <TextField
+                  id="standard-basic"
+                  label={translate("login")}
+                  variant="standard"
+                  type="text"
+                  name="login"
+                  value={this.login}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorLogin && (
                 <span className="text-danger">
                   {translate("error_RequireLogin")}
                 </span>
               )}
-            </div>
-            <div className="my-3">
-              <span>{translate("password")}</span>
-              <input
-                type="password"
-                name="password"
-                value={this.password}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+
+              <div className="my-3">
+                <TextField
+                  id="outlined-basic"
+                  label={translate("password")}
+                  variant="standard"
+                  type="password"
+                  name="password"
+                  value={this.password}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorPassword && (
                 <span className="text-danger">
                   {translate("error_RequirePassword")}
@@ -126,18 +142,19 @@ export class login extends Component {
               {ErrorLog && (
                 <span className="text-danger">{translate("error_login")}</span>
               )}
-            </div>
-            <div className="registration">
-              <a className="main-link" href={"/registration"}>
-                {translate("registration")}
-              </a>
-            </div>
-            <input
-              type="submit"
-              className="btn btn-success my-3 w-100"
-              value={translate("log_in")}
-            />
-          </form>
+
+              <div className="registration">
+                <a className="main-link" href={"/registration"}>
+                  {translate("registration")}
+                </a>
+              </div>
+              <input
+                type="submit"
+                className="btn btn-success my-3 w-100"
+                value={translate("log_in")}
+              />
+            </form>
+          </div>
         </div>
       </div>
     );

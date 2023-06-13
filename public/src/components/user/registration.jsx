@@ -4,6 +4,10 @@ import "./registration.css";
 import { respons } from "../../servises/index.js";
 import { connect } from "react-redux";
 
+import Header from "../../components/header/Header.jsx";
+import Footer from "../../components/footer/Footer.jsx";
+import { TextField } from "@material-ui/core";
+
 export class login extends Component {
   constructor(props) {
     super(props);
@@ -169,55 +173,70 @@ export class login extends Component {
       }
     }
     return (
-      <div className="login">
-        <div className="form-login rounded border border-dark my-4 back-color">
-          <div className="title-registration my-3">
-            <span>{translate("registration")}</span>
-          </div>
-          <form onSubmit={this.handleSubmit}>
-            <div className="my-3">
-              <span>{translate("PIB")}</span>
-              <input
-                type="text"
-                name="PIB"
-                value={this.state.PIB}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+      <div className="registration-pagee">
+        <Header {...this.props} className="header-reg" />
+        <div className="registration">
+          <div className="form-login rounded border border-dark margin-top back-color">
+            <div className="title-registration my-3">
+              <span>{translate("registration")}</span>
+            </div>
+            <form onSubmit={this.handleSubmit}>
+              <div className="py-3">
+                <TextField
+                  required
+                  id="standard-basic"
+                  label={translate("PIB")}
+                  variant="outlined"
+                  type="text"
+                  name="PIB"
+                  value={this.state.PIB}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorPIB && (
                 <span className="text-danger">
                   {translate("error_RequirePIB")}
                 </span>
               )}
-            </div>
-            <span>{translate("login")}</span>
-            <input
-              type="text"
-              name="login"
-              value={this.login}
-              onChange={this.changeVar}
-              className="form-control"
-            />
-            {ErrorLogin && (
-              <span className="text-danger">
-                {translate("error_RequireLogin")}
-              </span>
-            )}
-            {ErrorsLogin && (
-              <span className="text-danger">
-                {translate("error_loginexist")}
-              </span>
-            )}
 
-            <div className="my-3">
-              <span>{translate("phoneNumber")}</span>
-              <input
-                type="number"
-                name="PhoneNumber"
-                value={this.PhoneNumber}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+              <div className="py-3">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  label={translate("login")}
+                  variant="outlined"
+                  type="text"
+                  name="login"
+                  value={this.login}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
+              {ErrorLogin && (
+                <span className="text-danger">
+                  {translate("error_RequireLogin")}
+                </span>
+              )}
+              {ErrorsLogin && (
+                <span className="text-danger">
+                  {translate("error_loginexist")}
+                </span>
+              )}
+
+              <div className="py-3">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  label={translate("phoneNumber")}
+                  variant="outlined"
+                  type="number"
+                  name="PhoneNumber"
+                  value={this.PhoneNumber}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               <div className="Error">
                 {ErrorPhoneNumber && (
                   <span className="text-danger">
@@ -230,16 +249,20 @@ export class login extends Component {
                   </span>
                 )}
               </div>
-            </div>
-            <div className="my-3">
-              <span>{translate("email")}</span>
-              <input
-                type="email"
-                name="Email"
-                value={this.Email}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+
+              <div className="py-3">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  label={translate("email")}
+                  variant="outlined"
+                  type="email"
+                  name="Email"
+                  value={this.Email}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorEmail && (
                 <span className="text-danger">
                   {translate("error_RequireEmail")}
@@ -250,113 +273,130 @@ export class login extends Component {
                   {translate("error_emailexist")}
                 </span>
               )}
-            </div>
-            <div className="my-3">
-              <span>{translate("role")}</span>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="Role"
-                  id="Role1"
-                  value="customer"
-                  onChange={this.changeVar}
-                />
-                <label className="form-check-lable" for="Role1">
-                  {translate("customer")}
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="Role"
-                  id="Role2"
-                  value="contractor"
-                  onChange={this.changeVar}
-                />
-                <label className="" for="Role1">
-                  {translate("contractor")}
-                </label>
-              </div>
-              {ErroRole && (
-                <span className="text-danger">
-                  {translate("error_RequireRole")}
-                </span>
-              )}
-            </div>
-            {Role == "customer" && (
-              <>
-                <div className="my-3">
-                  <span>{translate("region")}</span>
+
+              <div className="py-3">
+                <span>{translate("role")}</span>
+                <div className="form-check">
                   <input
-                    type="text"
-                    name="Region"
-                    value={this.Region}
+                    className="form-check-input"
+                    type="radio"
+                    name="Role"
+                    id="Role1"
+                    value="customer"
                     onChange={this.changeVar}
-                    className="form-control"
                   />
+                  <label className="form-check-lable" for="Role1">
+                    {translate("customer")}
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="Role"
+                    id="Role2"
+                    value="contractor"
+                    onChange={this.changeVar}
+                  />
+                  <label className="" for="Role1">
+                    {translate("contractor")}
+                  </label>
+                </div>
+                {ErroRole && (
+                  <span className="text-danger">
+                    {translate("error_RequireRole")}
+                  </span>
+                )}
+              </div>
+              {Role == "customer" && (
+                <>
+                  <div className="py-3">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label={translate("region")}
+                      variant="outlined"
+                      type="text"
+                      name="Region"
+                      value={this.Region}
+                      onChange={this.changeVar}
+                      className="form-control"
+                    />
+                  </div>
                   {ErrorRegion && (
                     <span className="text-danger">
                       {translate("error_RequireRegion")}
                     </span>
                   )}
-                </div>
-                <div className="my-3">
-                  <span>{translate("city")}</span>
-                  <input
-                    type="text"
-                    name="City"
-                    value={this.City}
-                    onChange={this.changeVar}
-                    className="form-control"
-                  />
+
+                  <div className="py-3">
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label={translate("city")}
+                      variant="outlined"
+                      type="text"
+                      name="City"
+                      value={this.City}
+                      onChange={this.changeVar}
+                      className="form-control"
+                    />
+                  </div>
                   {ErrorCity && (
                     <span className="text-danger">
                       {translate("error_RequireCity")}
                     </span>
                   )}
-                </div>
-              </>
-            )}
-            <div className="my-3">
-              <span>{translate("password")}</span>
-              <input
-                type="password"
-                name="password"
-                value={this.Region}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+                </>
+              )}
+              <div className="py-3">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  label={translate("password")}
+                  variant="outlined"
+                  type="password"
+                  name="password"
+                  value={this.Region}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorPassword && (
                 <span className="text-danger">
                   {translate("error_RequirePassword")}
                 </span>
               )}
-            </div>
-            <div className="my-3">
-              <span>{translate("checkPassword")}</span>
-              <input
-                type="password"
-                name="checkpassword"
-                value={this.City}
-                onChange={this.changeVar}
-                className="form-control"
-              />
+
+              <div className="py-3">
+                <TextField
+                  required
+                  id="outlined-basic"
+                  label={translate("checkPassword")}
+                  variant="outlined"
+                  type="password"
+                  name="checkpassword"
+                  value={this.City}
+                  onChange={this.changeVar}
+                  className="form-control"
+                />
+              </div>
               {ErrorPasswordcheck && (
                 <span className="text-danger">
                   {translate("error_RequirePasswordCheck")}
                 </span>
               )}
-            </div>
 
-            <input
-              type="submit"
-              className="btn btn-success my-3 w-100"
-              value={translate("registr")}
-            />
-          </form>
+              <input
+                type="submit"
+                className="btn btn-success my-3 w-100"
+                value={translate("registr")}
+              />
+            </form>
+          </div>
         </div>
+
+        <Footer {...this.props} />
       </div>
     );
   }

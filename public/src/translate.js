@@ -106,12 +106,15 @@ export default {
         "БудКомпані - це найкраще вибір для роботи в сфері будівництва.",
       ButtonRegister: "Приєднатися до нас",
       ButtonAboutUs: "Дізнатися більше про БудКомпані",
+      about: "Про нас",
+      Logo: "Логотип",
+      siteName: "Назва сайту",
     },
   },
   en: {
     locale: "en",
     messages: {
-      login: "login",
+      login: "Login",
       password: "Password",
       registration: "Registration",
       log_in: "log in",
@@ -215,6 +218,9 @@ export default {
         "BudKompani is the best choice for work in the construction industry.",
       ButtonRegister: "Join us",
       ButtonAboutUs: "Learn more about BudKompany",
+      about: "About",
+      Logo: "Logo",
+      siteName: "Site name",
     },
   },
 };

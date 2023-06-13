@@ -8,6 +8,8 @@ import * as useRouterProjectController from "./routers/project.js";
 import * as useRouterTypeConstructionWorksController from "./routers/typeconstructionworks.js";
 import * as useRouterSetting from "./routers/setting.js";
 
+import { checkDatabaseConnection } from "./db.js";
+
 const express = require("express");
 const port = process.env.DB_PORT || 8001;
 
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(checkDatabaseConnection);
 app.use(express.json());
 app.get("/", (req, res) => {
   res.json("api");
