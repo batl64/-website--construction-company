@@ -22,32 +22,27 @@ class Root extends React.Component {
         role: "",
         isAuth: false,
       },
+      load: true,
     };
-  }
-  componentDidMount = () => {
+
     const body = {
       token: localStorage.getItem("tokenn"),
     };
-    respons("post", "/authPublic", JSON.stringify(body))
-      .then((data) => {
-        this.setState({
-          userData: {
-            userId: data.userId,
-            email: data.email,
-            login: data.login,
-            role: data.role,
-            isAuth: true,
-            confirm: data.confirm,
-          },
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-        if ((e.message = "NotCorrectToken")) {
-          localStorage.removeItem("tokenn");
-        }
+    this.setState({ load: true });
+    (async () => {
+      const data = await respons("post", "/authPublic", JSON.stringify(body));
+      this.setState({
+        userData: {
+          userId: data.userId,
+          email: data.email,
+          login: data.login,
+          role: data.role,
+          isAuth: true,
+        },
+        load: false,
       });
-  };
+    })();
+  }
 
   render() {
     return (
@@ -56,7 +51,13 @@ class Root extends React.Component {
         id="root-children-container"
       >
         <Suspense fallback={<LinearProgress />}>
-          <Routs userData={this.state.userData} />
+          {this.state.load ? (
+            <LinearProgress />
+          ) : (
+            <>
+              <Routs userData={this.state.userData} />
+            </>
+          )}
         </Suspense>
       </div>
     );
