@@ -69,7 +69,7 @@ export class Header extends Component {
                   <Typography
                     variant="h6"
                     noWrap
-                    className="self-align-center"
+                    className="self-align-center nav-link text-light"
                     component="a"
                     href="/"
                     sx={{

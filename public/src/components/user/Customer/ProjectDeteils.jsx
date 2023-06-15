@@ -4,6 +4,7 @@ import { withTranslate } from "react-redux-multilingual";
 import { respons } from "../../../servises";
 import "./Customer.css";
 import { forwardRef } from "react";
+import Message from "../../message/message.jsx";
 
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
@@ -54,8 +55,11 @@ export class projectDeteils extends Component {
     super(props);
     this.state = {
       Status: 0,
+      idSend: null,
+      infoDetails: null,
     };
   }
+
   componentDidMount() {
     respons(
       "get",
@@ -63,6 +67,14 @@ export class projectDeteils extends Component {
         new URLSearchParams({ id: this.props.match.params.id })
     ).then((data) => {
       this.setState({ Status: data.Status });
+    });
+
+    respons(
+      "get",
+      "/projectDeteils?" +
+        new URLSearchParams({ id: this.props.match.params.id })
+    ).then((data) => {
+      this.setState({ idSend: data.contractorUserId, infoDetails: data });
     });
   }
 
@@ -74,7 +86,7 @@ export class projectDeteils extends Component {
     )
       .then((data) => {
         if (data) {
-          this.props.history.push("/");
+          this.props.history.push("/userPage");
         }
       })
       .catch((e) => {
@@ -91,7 +103,7 @@ export class projectDeteils extends Component {
       "/projectCkeck",
       JSON.stringify({ id: this.props.match.params.id, status: 4 })
     );
-    this.props.history.push("/");
+    this.props.history.push("/userPage");
   };
 
   onRowDelete = (dat) => {
@@ -445,6 +457,7 @@ export class projectDeteils extends Component {
             }}
           />
         </div>
+        <Message {...this.props} {...this.state} />
       </div>
     );
   }

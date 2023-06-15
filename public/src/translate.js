@@ -109,6 +109,8 @@ export default {
       about: "Про нас",
       Logo: "Логотип",
       siteName: "Назва сайту",
+      send: "Відправити",
+      errorMessageText: "Потрібно спочатку ввести тест",
     },
   },
   en: {
@@ -221,6 +223,8 @@ export default {
       about: "About",
       Logo: "Logo",
       siteName: "Site name",
+      send: "Send",
+      errorMessageText: "You must first enter the test",
     },
   },
 };

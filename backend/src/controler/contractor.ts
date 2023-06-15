@@ -44,9 +44,7 @@ class ContractorController {
                       db.query(
                         `INSERT INTO contractor( PIB, PhoneNumber,ConfirmationRegistrationAdministrator, AdministratorConfirmedRegistration_ID, ConfirmationDateRegistration, UserId) VALUES ('${PIB}','${PhoneNumber}',${0},${null},${null},${userId})`,
                         (err, result) => {
-                          res
-                            .status(200)
-                            .json({ message: "���������� ������� ������" });
+                          res.status(200).json({ message: "Ok" });
                         }
                       );
                     }

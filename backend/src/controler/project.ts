@@ -68,8 +68,31 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
     });
   }
 
+  async getProjectDetails(req, res) {
+    const { id } = req.query;
+    db.query(
+      `SELECT  users1.ID as customerUserId, users2.ID as contractorUserId, CommonApproximateConstructionEstimate,FullBuldingAdress,ProjectClosingDate,Status,Administrator_ID
+    FROM project
+    INNER JOIN customer on project.Customer_ID = customer.ID
+    INNER JOIN users as users1 on customer.UserId = users1.ID
+    LEFT JOIN contractor on project.ApprovedContractor_ID = contractor.ID
+    LEFT JOIN users  as users2 on contractor.UserId = users2.ID WHERE project.ID = ${id}`,
+      (err, result) => {
+        if (err) {
+          console.error("Помилка при виконанні запиту:", err);
+          return;
+        }
+        res.json(result[0]);
+      }
+    );
+  }
+
   async getOneProject(req, res) {
     db.query(`SELECT Count(*) As pagesNumber From project`, (err, result) => {
+      if (err) {
+        console.error("Помилка при виконанні запиту:", err);
+        return;
+      }
       res.json(result);
     });
   }
@@ -101,8 +124,8 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
                 INNER JOIN users as users1 on customer.UserId = users1.ID
                 LEFT JOIN contractor on project.ApprovedContractor_ID = contractor.ID
                 LEFT JOIN users  as users2 on contractor.UserId = users2.ID
-                INNER JOIN administrator on project.Administrator_ID = administrator.ID
-                INNER JOIN users as users3 on administrator.UserId = users3.ID Where users2.ID = ${id}  AND (`;
+                LEFT JOIN administrator on project.Administrator_ID = administrator.ID
+                LEFT JOIN users as users3 on administrator.UserId = users3.ID Where users2.ID = ${id}  AND (`;
     const ser = searchFields.split(",");
     ser.map((dat, idx) => {
       url += `${user[dat]} like '%${search}%' `;

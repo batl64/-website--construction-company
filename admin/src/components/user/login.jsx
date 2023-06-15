@@ -104,12 +104,13 @@ export class login extends Component {
                 onChange={this.changeVar}
                 className="form-control"
               />
-              {ErrorLogin && (
-                <span className="text-danger">
-                  {translate("error_RequireLogin")}
-                </span>
-              )}
             </div>
+            {ErrorLogin && (
+              <span className="text-danger">
+                {translate("error_RequireLogin")}
+              </span>
+            )}
+
             <div className="translate-2 my-3">
               <TextField
                 id="outlined-basic"
@@ -121,15 +122,16 @@ export class login extends Component {
                 onChange={this.changeVar}
                 className="form-control"
               />
-              {ErrorPassword && (
-                <span className="text-danger">
-                  {translate("error_RequirePassword")}
-                </span>
-              )}
-              {ErrorLog && (
-                <span className="text-danger">{translate("error_login")}</span>
-              )}
             </div>
+            {ErrorPassword && (
+              <span className="text-danger">
+                {translate("error_RequirePassword")}
+              </span>
+            )}
+            {ErrorLog && (
+              <span className="text-danger">{translate("error_login")}</span>
+            )}
+
             <input
               type="submit"
               className="btn btn-success my-3 w-100"

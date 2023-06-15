@@ -16,10 +16,6 @@ const check = () => {
         console.error("Помилка при виконанні запиту:", error);
         return;
       }
-
-      // Запит був виконаний успішно, база даних доступна
-      const isDatabaseAvailable = true;
-      console.log("База даних доступна:", isDatabaseAvailable);
     });
   });
 };
@@ -52,5 +48,5 @@ db.getConnection((error, connection) => {
   }
 });
 
-setInterval(check, 36000);
+setInterval(check, 3600000);
 export default db;

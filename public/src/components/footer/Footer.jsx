@@ -2,6 +2,7 @@ import React from "react";
 
 import { withTranslate } from "react-redux-multilingual";
 import { Typography } from "@material-ui/core";
+import "./Footer.css";
 const Footer = (props) => {
   const { translate, userData } = props;
 
@@ -10,7 +11,7 @@ const Footer = (props) => {
       <Typography
         variant="h6"
         noWrap
-        className="self-align-center"
+        className="self-align-center nav-link logo-link"
         component="a"
         href="/"
         sx={{

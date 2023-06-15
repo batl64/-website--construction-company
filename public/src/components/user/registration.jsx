@@ -169,7 +169,7 @@ export class login extends Component {
       if (this.props.location.state) {
         this.props.history.push(this.props.location.state.loc);
       } else {
-        this.props.history.push("/");
+        this.props.history.push("/userPage");
       }
     }
     return (

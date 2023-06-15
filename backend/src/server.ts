@@ -7,6 +7,7 @@ import * as useRouterOfferedContractorsController from "./routers/offeredcontrac
 import * as useRouterProjectController from "./routers/project.js";
 import * as useRouterTypeConstructionWorksController from "./routers/typeconstructionworks.js";
 import * as useRouterSetting from "./routers/setting.js";
+import * as useRouterMessages from "./routers/messages.js";
 
 import { checkDatabaseConnection } from "./db.js";
 
@@ -40,5 +41,6 @@ app.use("/api", useRouterOfferedContractorsController);
 app.use("/api", useRouterProjectController);
 app.use("/api", useRouterTypeConstructionWorksController);
 app.use("/api", useRouterSetting);
+app.use("/api", useRouterMessages);
 
 app.listen(port, () => console.log(`server started on post ${port}`));
