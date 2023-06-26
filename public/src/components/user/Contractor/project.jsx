@@ -205,6 +205,7 @@ export class project extends Component {
           options={{
             sorting: true,
             search: true,
+            exportButton: true,
             actionsColumnIndex: -1,
           }}
         />

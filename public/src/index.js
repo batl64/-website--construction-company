@@ -21,26 +21,34 @@ class Root extends React.Component {
         login: "",
         role: "",
         isAuth: false,
+        confirm: false,
       },
       load: true,
     };
+  }
 
+  componentDidMount() {
     const body = {
       token: localStorage.getItem("tokenn"),
     };
     this.setState({ load: true });
     (async () => {
-      const data = await respons("post", "/authPublic", JSON.stringify(body));
-      this.setState({
-        userData: {
-          userId: data.userId,
-          email: data.email,
-          login: data.login,
-          role: data.role,
-          isAuth: true,
-        },
-        load: false,
-      });
+      try {
+        const data = await respons("post", "/authPublic", JSON.stringify(body));
+        this.setState({
+          userData: {
+            userId: data.userId,
+            email: data.email,
+            login: data.login,
+            role: data.role,
+            isAuth: true,
+            confirm: data.confirm,
+          },
+          load: false,
+        });
+      } catch (e) {
+        this.setState({ load: false });
+      }
     })();
   }
 

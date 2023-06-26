@@ -15,6 +15,8 @@ import thunk from "redux-thunk";
 import authRedux from "./redux/auth-reducer.js";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import translete from "./translate.js";
+import Reset from "./components/user/reset.jsx";
+import NewPassword from "./components/user/newPassword.jsx";
 
 const Login = React.lazy(() => import("./components/user/login.jsx"));
 const Tab = React.lazy(() => import("./components/tab/TabBar.jsx"));
@@ -69,9 +71,22 @@ class Routs extends React.Component {
               <Switch>
                 <Route
                   exact
+                  path={"/newPassword"}
+                  render={(props) => (
+                    <NewPassword {...store} {...this.props} {...this.state} />
+                  )}
+                />
+                <Route
+                  exact
                   path={"/login"}
                   render={() => <Login {...this.props} />}
                 />
+                <Route
+                  exact
+                  path={"/reset"}
+                  render={() => <Reset {...store} {...this.props} />}
+                />
+
                 {store.getState().user.isAuth ? (
                   <>
                     <Tab {...store.getState()} />

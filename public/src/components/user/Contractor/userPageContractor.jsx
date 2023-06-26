@@ -5,6 +5,7 @@ import { withTranslate } from "react-redux-multilingual";
 const OpenProject = React.lazy(() => import("./OpenProject.jsx"));
 const OfferredProject = React.lazy(() => import("./offerredProject.jsx"));
 const Project = React.lazy(() => import("./project.jsx"));
+const Message = React.lazy(() => import("../../message/message.jsx"));
 const userPageContractor = (props) => {
   const { translate } = props;
 

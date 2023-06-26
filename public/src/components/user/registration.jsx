@@ -59,7 +59,7 @@ export class login extends Component {
     this.state.PhoneNumber.length > 0
       ? (ErrorPhoneNumber = false)
       : (ErrorPhoneNumber = true);
-    this.state.PhoneNumber.length > 3 && this.state.PhoneNumber.length < 12
+    this.state.PhoneNumber.length > 3 && this.state.PhoneNumber.length < 13
       ? (ErrorLongPhoneNumber = false)
       : (ErrorLongPhoneNumber = true);
     this.state.Email.length > 0 ? (ErrorEmail = false) : (ErrorEmail = true);
@@ -357,7 +357,7 @@ export class login extends Component {
                   variant="outlined"
                   type="password"
                   name="password"
-                  value={this.Region}
+                  value={this.Password}
                   onChange={this.changeVar}
                   className="form-control"
                 />
@@ -376,7 +376,7 @@ export class login extends Component {
                   variant="outlined"
                   type="password"
                   name="checkpassword"
-                  value={this.City}
+                  value={this.checkpassword}
                   onChange={this.changeVar}
                   className="form-control"
                 />

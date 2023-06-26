@@ -1,5 +1,6 @@
 import db from "../db.js";
 import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
 class CustomerController {
   async createCustomer(req, res) {
@@ -83,8 +84,9 @@ class CustomerController {
     });
   }
   async updateCustomer(req, res) {
-    const { ID, PIB, PhoneNumber, Email, Login, UserId, City, Region } =
+    const { PIB, PhoneNumber, Password, Email, Login, UserId, City, Region } =
       req.body;
+
     db.query(
       `Select * FROM users WHERE Login ='${Login}' AND Id <> ${UserId}`,
       (err, result) => {
@@ -102,16 +104,41 @@ class CustomerController {
                 return res.status(302).json({ message: "user is email" });
               } else {
                 db.query(
-                  `UPDATE users set  Email='${Email}',Login ='${Login}' WHERE id = ${UserId}`,
-                  (err, result) => {
-                    db.query(
-                      `UPDATE customer set  PIB='${PIB}', PhoneNumber=${PhoneNumber},City='${City}',Region='${Region}' WHERE id = ${ID}`,
-                      (err, result) => {
+                  `Select * FROM users WHERE Id='${UserId}'`,
+                  (err, resultat) => {
+                    if (err) {
+                      return res
+                        .status(400)
+                        .json({ message: "Registration error" });
+                    } else if (
+                      typeof resultat !== "undefined" &&
+                      resultat.length < 0
+                    ) {
+                      return res.status(302).json({ message: "user is login" });
+                    } else {
+                      const validPassword = bcrypt.compareSync(
+                        Password,
+                        resultat[0].Password
+                      );
+                      if (!validPassword) {
                         return res
-                          .status(200)
-                          .json({ message: "registration ok" });
+                          .status(400)
+                          .json({ message: "Password error" });
                       }
-                    );
+                      db.query(
+                        `UPDATE users set  Email='${Email}',Login ='${Login}' WHERE id = ${UserId}`,
+                        (err, result) => {
+                          db.query(
+                            `UPDATE customer set  PIB='${PIB}', PhoneNumber='${PhoneNumber}',City='${City}',Region='${Region}' WHERE UserId = ${UserId}`,
+                            (err, result) => {
+                              return res
+                                .status(200)
+                                .json({ message: "registration ok" });
+                            }
+                          );
+                        }
+                      );
+                    }
                   }
                 );
               }

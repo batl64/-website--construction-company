@@ -29,6 +29,10 @@ const ProjectDeteils = React.lazy(() =>
 );
 const NotFound = React.lazy(() => import("./pages/Errors/NotFound.jsx"));
 import { respons } from "./servises";
+import Reset from "./components/user/reset.jsx";
+import NewPassword from "./components/user/newPassword.jsx";
+import UserInfo from "./components/user/userInfo.jsx";
+import ChangePassword from "./components/user/changePassword.jsx";
 
 class Routs extends React.Component {
   constructor(props) {
@@ -109,6 +113,13 @@ class Routs extends React.Component {
                 />
                 <Route
                   exact
+                  path={"/reset"}
+                  render={() => (
+                    <Reset {...store} {...this.props} {...this.state} />
+                  )}
+                />
+                <Route
+                  exact
                   path={"/registration"}
                   render={() => (
                     <Registration {...store} {...this.props} {...this.state} />
@@ -128,6 +139,13 @@ class Routs extends React.Component {
                     <MainPage {...store} {...this.props} {...this.state} />
                   )}
                 />
+                <Route
+                  exact
+                  path={"/newPassword"}
+                  render={(props) => (
+                    <NewPassword {...store} {...this.props} {...this.state} />
+                  )}
+                />
                 {store.getState().user.isAuth ? (
                   <>
                     <Tab {...store.getState()} />
@@ -143,6 +161,24 @@ class Routs extends React.Component {
                       path={"/projectDeteils/:id"}
                       render={(props) => (
                         <ProjectDeteils
+                          {...store}
+                          {...this.props}
+                          {...this.state}
+                        />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={"/userInfo"}
+                      render={(props) => (
+                        <UserInfo {...store} {...this.props} {...this.state} />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={"/changePassword"}
+                      render={(props) => (
+                        <ChangePassword
                           {...store}
                           {...this.props}
                           {...this.state}

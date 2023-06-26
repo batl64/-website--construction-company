@@ -1,18 +1,29 @@
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-@media (min-width:420px) {
-    .form-login form {
-        width: 30vw;
-        margin-left:15px;
-        padding-right:15px;
-    }
+@media (min-width: 420px) {
+  .form-login form {
+    width: 30vw;
+    margin-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 .back-color {
-    background: white !important;
+  background: white !important;
+}
+.main-link {
+  color: black;
+}
+.main-link:hover {
+  color: black;
+  text-decoration: none;
+}
+.registration {
+  display: flex;
+  justify-content: center;
 }

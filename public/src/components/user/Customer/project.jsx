@@ -158,18 +158,8 @@ export class project extends Component {
               editable: "never",
             },
             {
-              title: translate("loginAdmin"),
-              field: "LoginAdministrator",
-              editable: "never",
-            },
-            {
               title: translate("ContractorPhoneNumberm"),
               field: "ContractorPhoneNumberm",
-              editable: "never",
-            },
-            {
-              title: translate("EmailAdmin"),
-              field: "EmailAdmin",
               editable: "never",
             },
             {
@@ -281,6 +271,7 @@ export class project extends Component {
           options={{
             sorting: true,
             search: true,
+            exportButton: true,
             actionsColumnIndex: -1,
           }}
         />

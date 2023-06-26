@@ -1,11 +1,12 @@
-import * as Router from 'express';
+import * as Router from "express";
 const router = new Router();
-const ContractorController = require('../controler/contractor.js');
+const ContractorController = require("../controler/contractor.js");
 
-router.post('/contractor', ContractorController.createContractor)
-router.get('/contractor', ContractorController.getContractor)
-router.get('/contractorPage', ContractorController.getOneContractor)
-router.put('/contractor', ContractorController.updateContractor)
-router.delete('/contractor', ContractorController.deleteContractor)
+router.post("/contractor", ContractorController.createContractor);
+router.get("/contractor", ContractorController.getContractor);
+router.get("/contractorPage", ContractorController.getOneContractor);
+router.put("/contractor", ContractorController.updateContractor);
+router.put("/contractorStatus", ContractorController.updatecontractorStatus);
+router.delete("/contractor", ContractorController.deleteContractor);
 
-module.exports = router
+module.exports = router;

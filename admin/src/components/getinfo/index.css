@@ -1,5 +1,18 @@
 .button-send {
-    display: flex;
-    justify-content: center;
-    margin-right: 35px;
+  display: flex;
+  justify-content: center;
+  margin-right: 35px;
+}
+
+.users .tab-size a {
+  max-width: 200px;
+}
+
+.users .tab-size {
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.flex-50-row {
+  flex: 50%;
 }

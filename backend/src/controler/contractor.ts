@@ -108,7 +108,8 @@ class ContractorController {
       }
     );
   }
-  async updateContractor(req, res) {
+
+  async updatecontractorStatus(req, res) {
     const { ID, ConfirmationRegistrationAdministrator, idAdmin } = req.body;
     const Datenow = new Date();
     let date = null;
@@ -127,33 +128,70 @@ class ContractorController {
         );
       }
     );
+  }
+  async updateContractor(req, res) {
+    const { PIB, PhoneNumber, Password, Email, Login, UserId } = req.body;
 
-    //db.query(`Select * FROM users WHERE Login ='${LoginContractor}' AND Id <> ${UserId}`, (err, result) => {
-    //    if (err) {
-    //        return res.status(400).json({ message: 'Registration error1' })
-    //    }
-    //    else if (typeof result !== 'undefined' && result.length > 0) {
-    //        return res.status(302).json({ message: 'user is login' })
-    //    }
-    //    else {
-    //        db.query(`Select * FROM users WHERE Email='${Email}' AND Id <> ${UserId}`, (err, result) => {
-    //            if (err) {
-    //                res.status(400).json({ message: 'Registration error2' })
-    //            }
-    //            else if (typeof result !== 'undefined' && result.length > 0) {
-    //                return res.status(302).json({ message: 'user is email' })
-    //            }
-    //            else {
-    //                db.query(`UPDATE users set  Email='${Email}',Login ='${LoginContractor}' WHERE id = ${UserId}`, (err, result) => {
-    //                    db.query(`UPDATE contractor set  PIB='${PIB}', PhoneNumber=${PhoneNumber},ConfirmationRegistrationAdministrator=${ConfirmationRegistrationAdministrator},
-    //                             ConfirmationDateRegistration=${ConfirmationDateRegistration} WHERE id = ${ID}`, (err, result) => {
-    //                        return res.status(200).json({ message: 'registration ok' })
-    //                    });
-    //                });
-    //            }
-    //        });
-    //    }
-    //})
+    db.query(
+      `Select * FROM users WHERE Login ='${Login}' AND Id <> ${UserId}`,
+      (err, result) => {
+        if (err) {
+          return res.status(400).json({ message: "Registration error" });
+        } else if (typeof result !== "undefined" && result.length > 0) {
+          return res.status(302).json({ message: "user is login" });
+        } else {
+          db.query(
+            `Select * FROM users WHERE Email='${Email}' AND Id <> ${UserId}`,
+            (err, result) => {
+              if (err) {
+                res.status(400).json({ message: "Registration error" });
+              } else if (typeof result !== "undefined" && result.length > 0) {
+                return res.status(302).json({ message: "user is email" });
+              } else {
+                db.query(
+                  `Select * FROM users WHERE Id='${UserId}'`,
+                  (err, resultat) => {
+                    if (err) {
+                      return res
+                        .status(400)
+                        .json({ message: "Registration error" });
+                    } else if (
+                      typeof resultat !== "undefined" &&
+                      resultat.length < 0
+                    ) {
+                      return res.status(302).json({ message: "user is login" });
+                    } else {
+                      const validPassword = bcrypt.compareSync(
+                        Password,
+                        resultat[0].Password
+                      );
+                      if (!validPassword) {
+                        return res
+                          .status(400)
+                          .json({ message: "Password error" });
+                      }
+                      db.query(
+                        `UPDATE users set  Email='${Email}',Login ='${Login}' WHERE id = ${UserId}`,
+                        (err, result) => {
+                          db.query(
+                            `UPDATE contractor set  PIB='${PIB}', PhoneNumber='${PhoneNumber}' WHERE UserId = ${UserId}`,
+                            (err, result) => {
+                              return res
+                                .status(200)
+                                .json({ message: "registration ok" });
+                            }
+                          );
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      }
+    );
   }
 
   async deleteContractor(req, res) {

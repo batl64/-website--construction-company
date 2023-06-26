@@ -70,13 +70,23 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
 
   async getProjectDetails(req, res) {
     const { id } = req.query;
+
     db.query(
-      `SELECT  users1.ID as customerUserId, users2.ID as contractorUserId, CommonApproximateConstructionEstimate,FullBuldingAdress,ProjectClosingDate,Status,Administrator_ID
+      `SELECT  users1.ID as customerUserId, users1.Login as LoginCustomer, users3.Login as LoginAdmin, 
+      users1.Email as EmailCustomer, users2.Email as EmailContactor, users3.Email as EmailAdmin, 
+      customer.PIB  as fullNameCustomer, administrator.PIB as fullNameAdministrator, contractor.PIB as fullNameContactor,customer.PIB as fullNameCustomer, 
+      administrator.PhoneNumber as phoneNumberCustomer, administrator.PhoneNumber as phoneNumberAdmin, contractor.PhoneNumber as phoneNumberContactor,
+      users2.Login as LoginContactor, users2.ID as contractorUserId, 
+      CommonApproximateConstructionEstimate,FullBuldingAdress,ProjectClosingDate,
+      Status,Administrator_ID,contractDoc
     FROM project
     INNER JOIN customer on project.Customer_ID = customer.ID
     INNER JOIN users as users1 on customer.UserId = users1.ID
     LEFT JOIN contractor on project.ApprovedContractor_ID = contractor.ID
-    LEFT JOIN users  as users2 on contractor.UserId = users2.ID WHERE project.ID = ${id}`,
+    LEFT JOIN users  as users2 on contractor.UserId = users2.ID 
+    LEFT JOIN administrator on project.Administrator_ID = administrator.ID
+    LEFT JOIN users as users3 on administrator.UserId = users3.ID
+    WHERE project.ID = ${id}`,
       (err, result) => {
         if (err) {
           console.error("Помилка при виконанні запиту:", err);

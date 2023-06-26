@@ -36,3 +36,11 @@
 .language {
   display: flex;
 }
+
+.tab-user {
+  display: flex;
+}
+
+.setting-user {
+  margin-left: 0.5rem;
+}

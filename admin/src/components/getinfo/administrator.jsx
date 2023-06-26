@@ -58,27 +58,57 @@ export class admin extends Component {
   };
 
   onRowUpdate = (dat) => {
-    if (dat.PhoneNumber.length > 9 && 12 > dat.PhoneNumber.length) {
-      respons("put", "/admin", JSON.stringify(dat));
+    if (dat.PhoneNumber.length > 9 && 13 > dat.PhoneNumber.length) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (emailPattern.test(dat.Email)) {
+        respons("put", "/admin", JSON.stringify(dat));
+      } else {
+        Swal.fire({
+          showConfirmButton: true,
+          icon: "error",
+          text: this.props.translate("errorEmailPatern"),
+        });
+      }
     } else {
-      Swal.fire(this.props.translate("errorNumberPhone"));
+      Swal.fire({
+        showConfirmButton: true,
+        icon: "error",
+        text: this.props.translate("errorNumberPhone"),
+      });
     }
   };
 
   onRowCreate = (dat) => {
-    if (dat.PhoneNumber.length > 9 && 12 > dat.PhoneNumber.length) {
+    if (dat.PhoneNumber.length >= 9 && 13 > dat.PhoneNumber.length) {
       const password = Math.random().toString(36).slice(2, 8);
       respons(
         "post",
         "/admin",
         JSON.stringify({ ...dat, Role: "admin", Password: password })
       ).then((data) => {
-        if (data) {
-          Swal.fire(this.props.translate("yourPassword") + password);
+        if (emailPattern.test(dat.Email)) {
+          if (data) {
+            Swal.fire({
+              icon: "success",
+              showConfirmButton: true,
+              text: this.props.translate("yourPasswordSend"),
+            });
+          }
+        } else {
+          Swal.fire({
+            showConfirmButton: true,
+            icon: "error",
+            text: this.props.translate("errorEmailPatern"),
+          });
         }
       });
     } else {
-      Swal.fire(this.props.translate("errorNumberPhone"));
+      Swal.fire({
+        showConfirmButton: true,
+        icon: "error",
+        text: this.props.translate("errorNumberPhone"),
+      });
     }
   };
 
@@ -132,6 +162,13 @@ export class admin extends Component {
           ]}
           data={response}
           editable={{
+            isDeletable: (rowData) => {
+              if (this.props.userData.userId == rowData.UserId) {
+                return false;
+              } else {
+                return true;
+              }
+            },
             onRowDelete: (dat) =>
               new Promise((res, rej) => {
                 this.onRowDelete(dat);

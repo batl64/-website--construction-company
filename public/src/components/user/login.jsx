@@ -143,9 +143,14 @@ export class login extends Component {
                 <span className="text-danger">{translate("error_login")}</span>
               )}
 
-              <div className="registration">
+              <div className="registration mt-2">
                 <a className="main-link" href={"/registration"}>
                   {translate("registration")}
+                </a>
+              </div>
+              <div className="registration mt-2">
+                <a className="main-link" href={"/reset"}>
+                  {translate("reset")}
                 </a>
               </div>
               <input

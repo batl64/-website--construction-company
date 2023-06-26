@@ -217,6 +217,7 @@ export class OpenProject extends Component {
           options={{
             sorting: true,
             search: true,
+            exportButton: true,
             actionsColumnIndex: -1,
           }}
         />

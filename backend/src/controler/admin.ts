@@ -1,6 +1,17 @@
 import db from "../db.js";
 import * as bcrypt from "bcryptjs";
 
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.GOOGLEPASSWORD,
+  },
+});
+
 class AdminController {
   async createAdmin(req, res) {
     try {
@@ -33,6 +44,24 @@ class AdminController {
                       db.query(
                         `INSERT INTO administrator( PIB, PhoneNumber, UserId) VALUES ('${PIB}','${PhoneNumber}','${userId}')`,
                         (err, result) => {
+                          const url = process.env.ADMIN;
+                          const mailOption = {
+                            from: process.env.EMAIL,
+                            to: [Email],
+                            subject:
+                              "New Account im BuildCompani Administrator",
+                            html: `<h1><b>New account</b></h1>
+                            <p>You are an employee of BuildCompani, if not, please ignore this file.</p>
+                            <p>Otherwise, click on the link.</p>
+                            <p>Your login:${Login}</p>
+                            <p>Your password:${Password}</p>
+                            <hr/>
+                            <p><a href="${url}">Reset password</a></p>`,
+                          };
+
+                          transporter.sendMail(mailOption, (err, info) => {
+                            if (err) console.log(err);
+                          });
                           return res
                             .status(200)
                             .json({ message: "registration ok" });
@@ -126,10 +155,10 @@ class AdminController {
     );
   }
   async deleteAdmin(req, res) {
-    const { ID, UserId } = req.body;
+    const { UserId } = req.body;
 
     db.query(
-      `DELETE FROM administrator WHERE UserId = ${ID}`,
+      `DELETE FROM administrator WHERE UserId = ${UserId}`,
       (err, result) => {
         db.query(`DELETE FROM users WHERE Id = ${UserId}`, (err, result) => {
           res.json(result);

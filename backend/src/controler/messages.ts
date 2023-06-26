@@ -34,24 +34,7 @@ class MessageController {
       }
     );
   }
-  /*
-  async updateMessage(req, res) {
-    const {
-      TypeworkID,
-      TypeWork,
-      ScopeWork,
-      ApproximateConstructionEstimate,
-      PlaceConstructionWorks,
-    } = req.body;
 
-    db.query(
-      `UPDATE typeconstructionworks SET TypeWork='${TypeWork}',ScopeWork='${ScopeWork}',ApproximateConstructionEstimate=${ApproximateConstructionEstimate},PlaceConstructionWorks='${PlaceConstructionWorks}' WHERE ID=${TypeworkID}`,
-      (err, result) => {
-        res.json(result);
-      }
-    );
-  }
-  */
   async deleteMessage(req, res) {
     const id = req.body.id;
     db.query(`DELETE FROM message WHERE id = ${id}`, (err, result) => {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withTranslate } from "react-redux-multilingual";
 import { setUserData } from "../../redux/auth-reducer.js";
+import Settings from "@material-ui/icons/Settings";
 import "./TabBar.css";
 
 export class TabBar extends Component {
@@ -31,9 +32,14 @@ export class TabBar extends Component {
     };
     return (
       <div className="tab mx-5 my-4 px-4 border-bottom border-dark">
-        <div className="user">
-          <span>{this.props.user.email}</span>
-          <span> {this.props.user.login}</span>
+        <div className="tab-user">
+          <div className="user">
+            <span>{this.props.user.email}</span>
+            <span> {this.props.user.login}</span>
+          </div>
+          <a href="/userInfo" className="setting-user">
+            <Settings />
+          </a>
         </div>
         <a className="main-link" href={"/userPage"}>
           {translate("userPages")}

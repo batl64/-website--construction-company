@@ -140,6 +140,8 @@ class AuthrController {
           login: Loginuser,
           role: Role,
         });
+      } else {
+        return res.status(401).json({ message: "not auth" });
       }
     });
   }
@@ -221,6 +223,52 @@ class AuthrController {
 
     db.query(url, (err, result) => {
       res.send(result);
+    });
+  }
+
+  async getusersInfo(req, res) {
+    const { ID, Role } = req.query;
+    if (Role === "contractor") {
+      db.query(
+        `SELECT users.Login, users.Email,contractor.PhoneNumber, contractor.PIB FROM users Left JOIN contractor as contractor on users.Id = contractor.UserId  WHERE users.Id=${ID}`,
+        (err, result) => {
+          res.send(result[0]);
+        }
+      );
+    } else if (Role === "customer") {
+      db.query(
+        `SELECT users.Login, users.Email,customer.PhoneNumber, customer.PIB,customer.Region,customer.City FROM users Left JOIN customer as customer on users.Id = customer.UserId  WHERE users.Id=${ID}`,
+        (err, result) => {
+          res.send(result[0]);
+        }
+      );
+    }
+  }
+
+  async changePassword(req, res) {
+    const { Password, oldPassword, userId } = req.body;
+
+    db.query(`Select * From users WHERE Id = ${userId} `, (err, result) => {
+      if (err) {
+        return res.status(400).json({ message: "Registration error" });
+      } else if (result.length == 0) {
+        return res.status(302).json({ message: "user is login" });
+      } else {
+        const validPassword = bcrypt.compareSync(
+          oldPassword,
+          result[0].Password
+        );
+        if (!validPassword) {
+          return res.status(400).json({ message: "Password error" });
+        }
+        const hashPassword = bcrypt.hashSync(Password, 7);
+        db.query(
+          `UPDATE users set  Password='${hashPassword}' WHERE id = ${userId}`,
+          (err, result) => {
+            res.json(result);
+          }
+        );
+      }
     });
   }
 

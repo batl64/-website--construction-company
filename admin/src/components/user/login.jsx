@@ -131,7 +131,11 @@ export class login extends Component {
             {ErrorLog && (
               <span className="text-danger">{translate("error_login")}</span>
             )}
-
+            <div className="registration mt-2">
+              <a className="main-link" href={"/reset"}>
+                {translate("reset")}
+              </a>
+            </div>
             <input
               type="submit"
               className="btn btn-success my-3 w-100"
