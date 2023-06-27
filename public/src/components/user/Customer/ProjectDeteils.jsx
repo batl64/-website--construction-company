@@ -63,6 +63,7 @@ export class projectDeteils extends Component {
       idSend: null,
       infoDetails: null,
       load: true,
+      doc: false,
       blob: null,
       statusText: {
         0: this.props.translate("settingProject"),
@@ -210,18 +211,23 @@ export class projectDeteils extends Component {
   };
 
   onConfirm = (dat) => {
-    const file = new File([this.state.blob], "filename.pdf", {
-      type: "application/pdf",
-    });
-    const formData = new FormData();
-    formData.append("file", file);
-    upload(
-      "post",
-      "/upload?" + new URLSearchParams({ id: this.props.match.params.id }),
-      formData
-    );
     respons("put", "/projectConfirm", JSON.stringify(dat));
+    this.setState({ doc: true });
   };
+  componentDidUpdate() {
+    if (this.state.doc) {
+      const file = new File([this.state.blob], "filename.pdf", {
+        type: "application/pdf",
+      });
+      const formData = new FormData();
+      formData.append("file", file);
+      upload(
+        "post",
+        "/upload?" + new URLSearchParams({ id: this.props.match.params.id }),
+        formData
+      );
+    }
+  }
 
   render() {
     const { translate } = this.props;
@@ -461,9 +467,11 @@ export class projectDeteils extends Component {
                     </button>
                   </>
                 )}
-                {this.state.Status == 2 && (
+                {this.state.doc && (
                   <>
-                    <BlobProvider document={<Pdf {...this.props} />}>
+                    <BlobProvider
+                      document={<Pdf {...this.props} {...this.state} />}
+                    >
                       {({ blob, url, loading, error }) => {
                         if (this.state.blob !== blob) {
                           this.setState({ blob: blob });

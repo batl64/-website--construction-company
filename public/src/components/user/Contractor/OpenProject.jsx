@@ -136,8 +136,7 @@ export class OpenProject extends Component {
               tooltip: translate("offer"),
               onClick: (event, rowData) => {
                 Swal.mixin({
-                  input: "text",
-                  confirmButtonText: "Далі &rarr;",
+                  confirmButtonText: translate("next"),
                   showCancelButton: true,
                   progressSteps: ["1", "2"],
                 })
@@ -145,7 +144,7 @@ export class OpenProject extends Component {
                     {
                       title: translate("priceYou"),
                       input: "number",
-                      text: "Введіть значення першого поля:",
+                      text: translate("ApproximateConstructionEstimateOffered"),
                       showCancelButton: true,
                       inputValidator: (value) => {
                         if (
@@ -157,8 +156,9 @@ export class OpenProject extends Component {
                     },
 
                     {
-                      title: "Крок 2",
-                      text: "Введіть значення другого поля:",
+                      input: "text",
+                      title: translate("comentYou"),
+                      text: translate("coment"),
                       showCancelButton: true,
                       inputValidator: (value) => {
                         if (!value) {

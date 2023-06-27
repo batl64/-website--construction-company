@@ -34,7 +34,7 @@ export class ChangePassword extends Component {
     this.state.checkpassword == this.state.password
       ? (ErrorPasswordcheck = false)
       : (ErrorPasswordcheck = true);
-    this.state.oldPassword > 0
+    this.state.oldPassword.length > 0
       ? (ErrorOldPassword = false)
       : (ErrorOldPassword = true);
 

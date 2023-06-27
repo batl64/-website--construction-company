@@ -160,6 +160,11 @@ export default {
       changePassword: "Змінити пароль",
       descriptionProject: "Опис проекту",
       descriptionProjectOffer: "Коментар від підрядника",
+      ApproximateConstructionEstimateOffered:
+        "Введіть приблизний кошторис на дане будівництво",
+      coment: "Введіть  коментар до проекту",
+      comentYou: "Твій коментар",
+      next: "Наступний",
     },
   },
   en: {
@@ -322,6 +327,11 @@ export default {
       changePassword: "Change password",
       descriptionProject: "Project description",
       descriptionProjectOffer: "Comment from the contractor",
+      ApproximateConstructionEstimateOffered:
+        "Enter an approximate estimate for this constructio.",
+      coment: "Enter comment about the project",
+      comentYou: "Your comment",
+      next: "Next",
     },
   },
 };

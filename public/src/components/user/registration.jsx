@@ -129,12 +129,12 @@ export class login extends Component {
       })
       .catch((e) => {
         console.error(e);
-        if ((e.message = "user is login")) {
+        if (e.message === "user is login") {
           this.setState({
             ErrorsLogin: true,
           });
         }
-        if ((e.message = "user is email")) {
+        if (e.message === "user is email") {
           this.setState({
             ErrorsEmail: true,
           });

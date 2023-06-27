@@ -557,14 +557,6 @@ export class projectDeteils extends Component {
                         },
                       ]}
                       data={response}
-                      editable={{
-                        onRowDelete: (dat) =>
-                          new Promise((res, rej) => {
-                            this.onRowDelete(dat);
-                            tableRef.current.onQueryChange();
-                            res();
-                          }),
-                      }}
                       localization={{
                         body: {
                           addTooltip: translate("addTooltip"),
@@ -638,14 +630,6 @@ export class projectDeteils extends Component {
                       },
                     ]}
                     data={responseListWork}
-                    editable={{
-                      onRowDelete: (dat) =>
-                        new Promise((res, rej) => {
-                          this.onRowDelete(dat);
-                          tableRef.current.onQueryChange();
-                          res();
-                        }),
-                    }}
                     localization={{
                       body: {
                         addTooltip: translate("addTooltip"),
@@ -794,48 +778,7 @@ export class projectDeteils extends Component {
                       },
                     ]}
                     data={responseObject}
-                    editable={{
-                      isDeletable: (rowData) => {
-                        if (this.state.Status > 1) {
-                          return false;
-                        } else {
-                          return true;
-                        }
-                      },
-                      isEditable: (rowData) => {
-                        if (this.state.Status > 1) {
-                          return false;
-                        } else {
-                          return true;
-                        }
-                      },
-                      onRowDelete: (dat) =>
-                        new Promise((res, rej) => {
-                          this.onRowDeleteObject(dat);
-                          tableRefInfoObject.current.onQueryChange();
-                          res();
-                        }),
-                      onRowUpdate: (dat) =>
-                        new Promise((res, rej) => {
-                          this.onRowUpdateObject(dat);
-                          tableRefInfoObject.current.onQueryChange();
-                          res();
-                        }),
-                      onRowAdd: (dat) =>
-                        new Promise((res, rej) => {
-                          if (this.state.Status < 1) {
-                            this.onRowCreateObject(dat);
-                            tableRefInfoObject.current.onQueryChange();
-                            res();
-                          } else {
-                            Swal.fire({
-                              showConfirmButton: true,
-                              text: this.props.translate("StatusNotCreate"),
-                            });
-                            rej();
-                          }
-                        }),
-                    }}
+                    editable={{}}
                     localization={{
                       body: {
                         addTooltip: translate("addTooltip"),

@@ -64,18 +64,22 @@ export class admin extends Component {
       if (emailPattern.test(dat.Email)) {
         respons("put", "/admin", JSON.stringify(dat));
       } else {
+        setTimeout(() => {
+          Swal.fire({
+            showConfirmButton: true,
+            icon: "error",
+            text: this.props.translate("errorEmailPatern"),
+          });
+        }, 400);
+      }
+    } else {
+      setTimeout(() => {
         Swal.fire({
           showConfirmButton: true,
           icon: "error",
-          text: this.props.translate("errorEmailPatern"),
+          text: this.props.translate("errorNumberPhone"),
         });
-      }
-    } else {
-      Swal.fire({
-        showConfirmButton: true,
-        icon: "error",
-        text: this.props.translate("errorNumberPhone"),
-      });
+      }, 400);
     }
   };
 
@@ -89,26 +93,32 @@ export class admin extends Component {
       ).then((data) => {
         if (emailPattern.test(dat.Email)) {
           if (data) {
-            Swal.fire({
-              icon: "success",
-              showConfirmButton: true,
-              text: this.props.translate("yourPasswordSend"),
-            });
+            setTimeout(() => {
+              Swal.fire({
+                icon: "success",
+                showConfirmButton: true,
+                text: this.props.translate("yourPasswordSend"),
+              });
+            }, 400);
           }
         } else {
-          Swal.fire({
-            showConfirmButton: true,
-            icon: "error",
-            text: this.props.translate("errorEmailPatern"),
-          });
+          setTimeout(() => {
+            Swal.fire({
+              showConfirmButton: true,
+              icon: "error",
+              text: this.props.translate("errorEmailPatern"),
+            });
+          }, 400);
         }
       });
     } else {
-      Swal.fire({
-        showConfirmButton: true,
-        icon: "error",
-        text: this.props.translate("errorNumberPhone"),
-      });
+      setTimeout(() => {
+        Swal.fire({
+          showConfirmButton: true,
+          icon: "error",
+          text: this.props.translate("errorNumberPhone"),
+        });
+      }, 400);
     }
   };
 
