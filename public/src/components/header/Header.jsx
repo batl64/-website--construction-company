@@ -65,7 +65,7 @@ export class Header extends Component {
           <div className="nav">
             <AppBar position="static">
               <Container maxWidth="xl">
-                <Toolbar disableGutters className="d-flex">
+                <Toolbar disableGutters className="d-flex mobile-menu">
                   <Typography
                     variant="h6"
                     noWrap

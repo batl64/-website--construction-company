@@ -55,6 +55,36 @@
   justify-content: center;
   flex-direction: column;
 }
+@media (max-width: 590px) {
+  .mobile-menu {
+    flex-direction: column;
+  }
+  .mobile-menu div {
+    margin-left: 0 !important;
+  }
+}
+@media (max-width: 690px) {
+  .mobile-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mobile-banner a {
+    margin-bottom: 10px;
+  }
+
+  .text-image h2 {
+    font-size: 1.5rem;
+  }
+  .text-image h1 {
+    font-size: 2rem;
+  }
+}
+.About {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
 @media (max-width: 1280px) {
   .banner-start {
     height: 820px;

@@ -129,54 +129,59 @@ export class OpenProject extends Component {
               type: "currency",
               currencySetting: { currencyCode: "UAH" },
             },
-            {
-              title: translate("ProjectClosingDate"),
-              field: "ProjectClosingDate",
-              editable: "never",
-              type: "datetime",
-            },
-            {
-              title: translate("FullBuldingAdress"),
-              field: "FullBuldingAdress",
-              editable: "never",
-            },
-            {
-              title: translate("Status"),
-              field: "Status",
-              lookup: {
-                0: translate("settingProject"),
-                1: translate("waitCheck"),
-                2: translate("seachContractor"),
-                3: translate("bulding"),
-                4: translate("waitClosing"),
-                5: translate("projectClosing"),
-              },
-            },
           ]}
           actions={[
             {
               icon: tableIcons.Check,
               tooltip: translate("offer"),
               onClick: (event, rowData) => {
-                Swal.fire({
-                  text: translate("priceYou"),
+                Swal.mixin({
+                  input: "text",
+                  confirmButtonText: "Далі &rarr;",
                   showCancelButton: true,
-                  input: "number",
-                  inputValidator: (value) => {
-                    if (rowData.CommonApproximateConstructionEstimate < value) {
-                      return translate("more");
-                    }
-                  },
-                }).then((data) => {
-                  const body = {
-                    Project_ID: rowData.ID,
-                    User_ID: this.props.getState().user.userId,
-                    ContractorSuggestedPrice: data.value,
-                  };
-                  respons("post", "/offeredcontractors", JSON.stringify(body));
-                  tableRef.current.onQueryChange();
-                  window.location.reload();
-                });
+                  progressSteps: ["1", "2"],
+                })
+                  .queue([
+                    {
+                      title: translate("priceYou"),
+                      input: "number",
+                      text: "Введіть значення першого поля:",
+                      showCancelButton: true,
+                      inputValidator: (value) => {
+                        if (
+                          rowData.CommonApproximateConstructionEstimate < value
+                        ) {
+                          return translate("more");
+                        }
+                      },
+                    },
+
+                    {
+                      title: "Крок 2",
+                      text: "Введіть значення другого поля:",
+                      showCancelButton: true,
+                      inputValidator: (value) => {
+                        if (!value) {
+                          return "Поле не може бути порожнім!";
+                        }
+                      },
+                    },
+                  ])
+                  .then((data) => {
+                    const body = {
+                      Project_ID: rowData.ID,
+                      User_ID: this.props.getState().user.userId,
+                      ContractorSuggestedPrice: data.value[0],
+                      description: data.value[1],
+                    };
+                    respons(
+                      "post",
+                      "/offeredcontractors",
+                      JSON.stringify(body)
+                    );
+                    tableRef.current.onQueryChange();
+                    window.location.reload();
+                  });
               },
             },
             {

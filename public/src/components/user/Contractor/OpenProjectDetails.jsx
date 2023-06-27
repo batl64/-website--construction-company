@@ -353,6 +353,14 @@ export class projectDeteils extends Component {
                       </span>
                     )}
                   </div>
+                  {this.state.infoDetails.description && (
+                    <div className="ml-3 my-3  row">
+                      <span className="flex-50-row">
+                        <b> {translate("descriptionProject")}</b>:
+                        {this.state.infoDetails.description}
+                      </span>
+                    </div>
+                  )}
                   {this.state.infoDetails.contractDoc && (
                     <div className="ml-3 my-3  row">
                       <span className="flex-50-row">

@@ -31,7 +31,7 @@ export class TabBar extends Component {
       this.props.history.push("/");
     };
     return (
-      <div className="tab mx-5 my-4 px-4 border-bottom border-dark">
+      <div className="tab mx-5 my-4 px-4 border-bottom border-dark tab-user-page">
         <div className="tab-user">
           <div className="user">
             <span>{this.props.user.email}</span>

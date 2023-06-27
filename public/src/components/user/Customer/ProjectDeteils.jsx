@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 import Pdf from "../../pdf/pdf.jsx";
 import Report from "../../pdf/pdfReport.jsx";
 import { BlobProvider, PDFDownloadLink } from "@react-pdf/renderer";
+import Footer from "../../../components/footer/Footer.jsx";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -571,6 +572,14 @@ export class projectDeteils extends Component {
                       </span>
                     )}
                   </div>
+                  {this.state.infoDetails.description && (
+                    <div className="ml-3 my-3  row">
+                      <span className="flex-50-row">
+                        <b> {translate("descriptionProject")}</b>:
+                        {this.state.infoDetails.description}
+                      </span>
+                    </div>
+                  )}
                   {this.state.infoDetails.contractDoc && (
                     <div className="ml-3 my-3  row">
                       <span className="flex-50-row">
@@ -619,16 +628,9 @@ export class projectDeteils extends Component {
                           align: "center",
                         },
                         {
-                          title: translate("CustomerEmail"),
-                          field: "CustomerEmail",
+                          title: translate("descriptionProjectOffer"),
+                          field: "description",
                           editable: "never",
-                          align: "center",
-                        },
-                        {
-                          title: translate("CustomerPhone"),
-                          field: "CustomerPhone",
-                          editable: "never",
-                          align: "center",
                         },
                         {
                           title: translate("contractorSuggestedPrice"),

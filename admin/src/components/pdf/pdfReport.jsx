@@ -249,6 +249,14 @@ const Pdf = (props) => {
                   {translate("ProjectClosingDate")}:{project.ProjectClosingDate}
                 </Text>
               )}
+
+              {project.description && (
+                <>
+                  <Text>
+                    {translate("descriptionProject")}:{project.description}
+                  </Text>
+                </>
+              )}
               <Text
                 style={{
                   marginTop: "20px",

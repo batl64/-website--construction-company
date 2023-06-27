@@ -2,7 +2,8 @@ import db from "../db.js";
 
 class OfferedContractorsController {
   async createOfferedContractors(req, res) {
-    const { Project_ID, User_ID, ContractorSuggestedPrice } = req.body;
+    const { Project_ID, User_ID, ContractorSuggestedPrice, description } =
+      req.body;
     db.query(`Select * from project Where Id=${Project_ID}`, (err, reselt) => {
       const Administrator_ID = reselt[0].Administrator_ID;
 
@@ -12,7 +13,7 @@ class OfferedContractorsController {
           const Contractor_ID = reselt[0].ID;
 
           db.query(
-            `INSERT INTO offeredcontractors(Project_ID, Contractor_ID, ContractorSuggestedPrice, Administrator_ID) VALUES (${Project_ID},${Contractor_ID},${ContractorSuggestedPrice},${Administrator_ID})`,
+            `INSERT INTO offeredcontractors(Project_ID, Contractor_ID, ContractorSuggestedPrice, Administrator_ID,description) VALUES (${Project_ID},${Contractor_ID},${ContractorSuggestedPrice},${Administrator_ID},'${description}')`,
             (err, result) => {
               res.status(200).json({ message: "List creacte" });
             }
@@ -36,7 +37,7 @@ class OfferedContractorsController {
       LoginContractor: "user.Login",
       LoginAdministrator: "us.Login",
     };
-    let url = `SELECT offeredcontractors.ID, offeredcontractors.Project_ID, offeredcontractors.ContractorSuggestedPrice, us.Login as LoginAdministrator, user.Login as LoginContractor FROM offeredcontractors
+    let url = `SELECT offeredcontractors.ID,description, offeredcontractors.Project_ID, offeredcontractors.ContractorSuggestedPrice, us.Login as LoginAdministrator, user.Login as LoginContractor FROM offeredcontractors
         INNER JOIN contractor on offeredcontractors.Contractor_ID = contractor.ID
         INNER JOIN administrator on offeredcontractors.Administrator_ID = administrator.ID
         INNER JOIN users as us on administrator.UserId = us.Id
@@ -82,11 +83,12 @@ class OfferedContractorsController {
       ContractorSuggestedPrice: "offeredcontractors.ContractorSuggestedPrice",
       LoginContractor: "user.Login",
       LoginAdministrator: "us.Login",
+      description: "description",
     };
     db.query(
       `SELECT * FROM contractor WHERE contractor.UserId =${id}`,
       (err, result) => {
-        let url = `SELECT offeredcontractors.ID, offeredcontractors.Project_ID, offeredcontractors.ContractorSuggestedPrice, us.Login as LoginAdministrator, user.Login as LoginContractor FROM offeredcontractors
+        let url = `SELECT offeredcontractors.ID,offeredcontractors.description, offeredcontractors.Project_ID, offeredcontractors.ContractorSuggestedPrice, us.Login as LoginAdministrator, user.Login as LoginContractor FROM offeredcontractors
         INNER JOIN contractor on offeredcontractors.Contractor_ID = contractor.ID
         LEFT JOIN administrator on offeredcontractors.Administrator_ID = administrator.ID
         LEFT JOIN users as us on administrator.UserId = us.Id
@@ -140,7 +142,7 @@ class OfferedContractorsController {
       LoginContractor: "user.Login",
       LoginAdministrator: "us.Login",
     };
-    let url = `SELECT offeredcontractors.ID, offeredcontractors.Project_ID,us.Login as LoginAdministrator, contractor.ID As Contractor_ID, offeredcontractors.ContractorSuggestedPrice,contractor.PhoneNumber as CustomerPhone, user.Email as CustomerEmail, user.Login as LoginContractor FROM offeredcontractors
+    let url = `SELECT offeredcontractors.ID,offeredcontractors.description, offeredcontractors.Project_ID,us.Login as LoginAdministrator, contractor.ID As Contractor_ID, offeredcontractors.ContractorSuggestedPrice,contractor.PhoneNumber as CustomerPhone, user.Email as CustomerEmail, user.Login as LoginContractor FROM offeredcontractors
         INNER JOIN contractor on offeredcontractors.Contractor_ID = contractor.ID
         Left JOIN administrator on offeredcontractors.Administrator_ID = administrator.ID
         Left JOIN users as us on administrator.UserId = us.Id

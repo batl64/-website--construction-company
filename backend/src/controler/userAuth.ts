@@ -24,33 +24,36 @@ class AuthrController {
     try {
       const { Password, Login, Role } = req.body;
 
-      db.query(`Select * FROM users WHERE Login="${Login}"`, (err, result) => {
-        if (err) {
-          return res.status(400).json({ message: "Login error" });
-        } else if (typeof result !== "undefined" && result.length > 0) {
-          const validPassword = bcrypt.compareSync(
-            Password,
-            result[0].Password
-          );
-          if (!validPassword) {
+      db.query(
+        `Select * FROM users WHERE Login="${Login}" OR Email="${Login}"`,
+        (err, result) => {
+          if (err) {
             return res.status(400).json({ message: "Login error" });
-          }
-          if (result[0].Role == "admin") {
-            const token = generateAccessToken(result[0].Id, result[0].Role);
-            return res.json({
-              token,
-              userId: result[0].Id,
-              email: result[0].Email,
-              login: result[0].Login,
-              role: result[0].Role,
-            });
+          } else if (typeof result !== "undefined" && result.length > 0) {
+            const validPassword = bcrypt.compareSync(
+              Password,
+              result[0].Password
+            );
+            if (!validPassword) {
+              return res.status(400).json({ message: "Login error" });
+            }
+            if (result[0].Role == "admin") {
+              const token = generateAccessToken(result[0].Id, result[0].Role);
+              return res.json({
+                token,
+                userId: result[0].Id,
+                email: result[0].Email,
+                login: result[0].Login,
+                role: result[0].Role,
+              });
+            } else {
+              res.status(400).json({ message: "Login error" });
+            }
           } else {
             res.status(400).json({ message: "Login error" });
           }
-        } else {
-          res.status(400).json({ message: "Login error" });
         }
-      });
+      );
     } catch {
       res.status(400).json({ message: "login error" });
     }
@@ -60,55 +63,58 @@ class AuthrController {
     try {
       const { Password, Login } = req.body;
 
-      db.query(`Select * FROM users  WHERE Login="${Login}"`, (err, result) => {
-        if (err) {
-          return res.status(400).json({ message: "Login error" });
-        } else if (typeof result !== "undefined" && result.length > 0) {
-          const validPassword = bcrypt.compareSync(
-            Password,
-            result[0].Password
-          );
-          if (!validPassword) {
+      db.query(
+        `Select * FROM users  WHERE Login="${Login}" OR Email="${Login}"`,
+        (err, result) => {
+          if (err) {
             return res.status(400).json({ message: "Login error" });
-          }
-          if (result[0].Role !== "admin") {
-            const Role = result[0].Role;
-            const UserId = result[0].Id;
-            const Email = result[0].Email;
-            const Loginuser = result[0].Login;
-            if (result[0].Role !== "contractor") {
-              const token = generateAccessToken(result[0].Id, Role);
-              return res.json({
-                token,
-                userId: UserId,
-                email: Email,
-                login: Loginuser,
-                role: Role,
-                confirm: null,
-              });
+          } else if (typeof result !== "undefined" && result.length > 0) {
+            const validPassword = bcrypt.compareSync(
+              Password,
+              result[0].Password
+            );
+            if (!validPassword) {
+              return res.status(400).json({ message: "Login error" });
+            }
+            if (result[0].Role !== "admin") {
+              const Role = result[0].Role;
+              const UserId = result[0].Id;
+              const Email = result[0].Email;
+              const Loginuser = result[0].Login;
+              if (result[0].Role !== "contractor") {
+                const token = generateAccessToken(result[0].Id, Role);
+                return res.json({
+                  token,
+                  userId: UserId,
+                  email: Email,
+                  login: Loginuser,
+                  role: Role,
+                  confirm: null,
+                });
+              } else {
+                db.query(
+                  `Select * FROM ${Role}  WHERE UserId="${UserId}"`,
+                  (err, result) => {
+                    const token = generateAccessToken(UserId, Role);
+                    return res.json({
+                      token,
+                      userId: UserId,
+                      email: Email,
+                      login: Loginuser,
+                      role: Role,
+                      confirm: result[0].ConfirmationRegistrationAdministrator,
+                    });
+                  }
+                );
+              }
             } else {
-              db.query(
-                `Select * FROM ${Role}  WHERE UserId="${UserId}"`,
-                (err, result) => {
-                  const token = generateAccessToken(UserId, Role);
-                  return res.json({
-                    token,
-                    userId: UserId,
-                    email: Email,
-                    login: Loginuser,
-                    role: Role,
-                    confirm: result[0].ConfirmationRegistrationAdministrator,
-                  });
-                }
-              );
+              res.status(400).json({ message: "Login error" });
             }
           } else {
             res.status(400).json({ message: "Login error" });
           }
-        } else {
-          res.status(400).json({ message: "Login error" });
         }
-      });
+      );
     } catch {
       res.status(400).json({ message: "login error" });
     }

@@ -3,11 +3,30 @@
   justify-content: center;
 }
 
-@media (min-width: 420px) {
+@media (min-width: 590px) {
   .form-login form {
     width: 30vw;
     margin-left: 15px;
     padding-right: 15px;
+  }
+  .margin-top {
+    margin: 6rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 589px) {
+  .form-login form {
+    width: 99%;
+    margin-left: 5px;
+    padding-right: 5px;
+  }
+  .form-login {
+    width: 99%;
+  }
+  .margin-top {
+    margin-top: 14rem;
   }
 }
 .registration {
@@ -28,10 +47,6 @@
 
 .back-color {
   background: white !important;
-}
-
-.margin-top {
-  margin: 6rem;
 }
 
 .header-reg {

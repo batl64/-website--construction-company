@@ -19,7 +19,7 @@ const MainPage = (props) => {
           <span className="text-image ">
             <h1 className="text-center"> {translate("headerMainFirst")}</h1>
             <h2>{translate("headerMainSecond")}</h2>
-            <div className="text-center">
+            <div className="text-center mobile-banner">
               <a href="/registration" class="btn btn-dark mr-3">
                 {translate("ButtonRegister")}
               </a>

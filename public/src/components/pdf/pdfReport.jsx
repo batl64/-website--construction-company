@@ -249,6 +249,13 @@ const Pdf = (props) => {
                   {translate("ProjectClosingDate")}:{project.ProjectClosingDate}
                 </Text>
               )}
+              {project.description && (
+                <>
+                  <Text>
+                    {translate("descriptionProject")}:{project.description}
+                  </Text>
+                </>
+              )}
               <Text
                 style={{
                   marginTop: "20px",
@@ -289,7 +296,6 @@ const Pdf = (props) => {
               >
                 Будівельні матеріали
               </Text>
-
               <View style={styles.table}>
                 <View style={[styles.tableRow, styles.tableHeader]}>
                   <Text style={styles.tableCell}>Тип роботи</Text>
@@ -321,7 +327,6 @@ const Pdf = (props) => {
               >
                 Об'єкти будівництва
               </Text>
-
               <View style={styles.table}>
                 <View style={[styles.tableRow, styles.tableHeader]}>
                   <Text style={styles.tableCellObject}>Об'єкт будівництва</Text>

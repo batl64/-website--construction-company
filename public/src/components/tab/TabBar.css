@@ -44,3 +44,18 @@
 .setting-user {
   margin-left: 0.5rem;
 }
+
+@media (max-width: 700px) {
+  .tab-user-page {
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 1rem;
+  }
+  .tab-user-page div,
+  .tab-user-page a {
+    padding-bottom: 1rem;
+  }
+  .main-link {
+    text-align: center;
+  }
+}

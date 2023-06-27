@@ -4,3 +4,9 @@
 .logo-link:hover {
   color: black;
 }
+@media (max-width: 589px) {
+  .footer-border-top {
+    flex-direction: column;
+    align-items: center;
+  }
+}

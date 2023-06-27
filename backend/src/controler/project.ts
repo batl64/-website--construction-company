@@ -10,14 +10,15 @@ class ProjectController {
       Administrator_ID,
       ProjectClosingDate,
       FullBuldingAdress,
+      description,
       id,
     } = req.body;
 
     db.query(`SELECT * FROM customer Where UserId=${id}`, (err, result) => {
       const Customer_ID = result[0].ID;
       db.query(
-        `INSERT INTO project(Customer_ID, ApprovedContractor_ID, CommonApproximateConstructionEstimate, Status, Administrator_ID, ProjectClosingDate, FullBuldingAdress)
-VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionEstimate},${Status},${Administrator_ID},${ProjectClosingDate},'${FullBuldingAdress}')`,
+        `INSERT INTO project(Customer_ID, ApprovedContractor_ID, CommonApproximateConstructionEstimate, Status, Administrator_ID, ProjectClosingDate, FullBuldingAdress,description)
+VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionEstimate},${Status},${Administrator_ID},${ProjectClosingDate},'${FullBuldingAdress}','${description}')`,
         (err, result) => {
           res.status(200).json({ message: "List creacte" });
         }
@@ -77,7 +78,7 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
       customer.PIB  as fullNameCustomer, administrator.PIB as fullNameAdministrator, contractor.PIB as fullNameContactor,customer.PIB as fullNameCustomer, 
       administrator.PhoneNumber as phoneNumberCustomer, administrator.PhoneNumber as phoneNumberAdmin, contractor.PhoneNumber as phoneNumberContactor,
       users2.Login as LoginContactor, users2.ID as contractorUserId, 
-      CommonApproximateConstructionEstimate,FullBuldingAdress,ProjectClosingDate,
+      CommonApproximateConstructionEstimate,FullBuldingAdress,ProjectClosingDate,project.description,
       Status,Administrator_ID,contractDoc
     FROM project
     INNER JOIN customer on project.Customer_ID = customer.ID
@@ -197,9 +198,10 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
         "project.CommonApproximateConstructionEstimate",
       LoginCustomer: "users1.Login",
       LoginAdministrator: "users3.Login",
+      description: "project.description",
     };
 
-    let url = `SELECT project.ID, contractor.PhoneNumber as ContractorPhoneNumberm, users2.Email as ContractorEmail, users1.Login as LoginCustomer, users2.Login as LoginContactor, project.CommonApproximateConstructionEstimate, project.Status, users3.Login as LoginAdministrator,users3.Email as EmailAdmin, project.ProjectClosingDate,project.FullBuldingAdress
+    let url = `SELECT project.ID,project.description, contractor.PhoneNumber as ContractorPhoneNumberm, users2.Email as ContractorEmail, users1.Login as LoginCustomer, users2.Login as LoginContactor, project.CommonApproximateConstructionEstimate, project.Status, users3.Login as LoginAdministrator,users3.Email as EmailAdmin, project.ProjectClosingDate,project.FullBuldingAdress
                 FROM project
                 LEFT JOIN customer on project.Customer_ID = customer.ID
                 LEFT JOIN users as users1 on customer.UserId = users1.ID
@@ -349,11 +351,15 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
   }
 
   async projectupcust(req, res) {
-    const { ID, CommonApproximateConstructionEstimate, FullBuldingAdress } =
-      req.body;
+    const {
+      ID,
+      CommonApproximateConstructionEstimate,
+      FullBuldingAdress,
+      description,
+    } = req.body;
 
     db.query(
-      `UPDATE project SET FullBuldingAdress='${FullBuldingAdress}', CommonApproximateConstructionEstimate=${CommonApproximateConstructionEstimate} WHERE ID=${ID}`,
+      `UPDATE project SET FullBuldingAdress='${FullBuldingAdress}', CommonApproximateConstructionEstimate=${CommonApproximateConstructionEstimate},description='${description}' WHERE ID=${ID}`,
       (err, result) => {
         res.json(result);
       }
@@ -361,10 +367,14 @@ VALUES (${Customer_ID},${ApprovedContractor_ID},${CommonApproximateConstructionE
   }
 
   async projectInfo(req, res) {
-    const { ID, CommonApproximateConstructionEstimate, FullBuldingAdress } =
-      req.body;
+    const {
+      ID,
+      CommonApproximateConstructionEstimate,
+      FullBuldingAdress,
+      description,
+    } = req.body;
     db.query(
-      `UPDATE project SET CommonApproximateConstructionEstimate=${CommonApproximateConstructionEstimate} FullBuldingAdress='${FullBuldingAdress}' WHERE ID=${ID}`,
+      `UPDATE project SET CommonApproximateConstructionEstimate=${CommonApproximateConstructionEstimate} FullBuldingAdress='${FullBuldingAdress}',description='${description}' WHERE ID=${ID}`,
       (err, result) => {
         res.json(result);
       }

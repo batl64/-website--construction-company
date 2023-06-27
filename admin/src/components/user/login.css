@@ -5,11 +5,22 @@
   height: 100vh;
 }
 
-@media (min-width: 420px) {
+@media (min-width: 590px) {
   .form-login form {
     width: 30vw;
     margin-left: 15px;
     padding-right: 15px;
+  }
+}
+
+@media (max-width: 589px) {
+  .form-login form {
+    width: 99%;
+    margin-left: 5px;
+    padding-right: 5px;
+  }
+  .form-login {
+    width: 99%;
   }
 }
 

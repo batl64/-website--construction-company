@@ -158,6 +158,8 @@ export default {
       error_RequirePasswordCheckEqual:
         "Пароль та перевірка паролю повинні співпадати",
       changePassword: "Змінити пароль",
+      descriptionProject: "Опис проекту",
+      descriptionProjectOffer: "Коментар від підрядника",
     },
   },
   en: {
@@ -318,6 +320,8 @@ export default {
       error_RequirePasswordCheckEqual:
         "Password and password verification must match",
       changePassword: "Change password",
+      descriptionProject: "Project description",
+      descriptionProjectOffer: "Comment from the contractor",
     },
   },
 };

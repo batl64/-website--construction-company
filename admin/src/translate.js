@@ -122,6 +122,7 @@ export default {
       loginAndEmail: "Псевдонім або електрона пошта",
       errorEmailPatern: "Введіть існуючу пошту",
       report: "Звіт по проекту",
+      descriptionProject: "Коментар від підрядника",
     },
   },
   en: {
@@ -247,6 +248,7 @@ export default {
       loginAndEmail: "Login or e-mail",
       errorEmailPatern: "Enter your existing email",
       report: "Project report",
+      descriptionProject: "Comment from the contractor",
     },
   },
 };

@@ -483,6 +483,14 @@ export class projectDeteils extends Component {
                       </span>
                     )}
                   </div>
+                  {this.state.infoDetails.description && (
+                    <div className="ml-3 my-3  row">
+                      <span className="flex-50-row">
+                        <b> {translate("descriptionProject")}</b>:
+                        {this.state.infoDetails.description}
+                      </span>
+                    </div>
+                  )}
                   {this.state.infoDetails.contractDoc && (
                     <div className="ml-3 my-3  row">
                       <span className="flex-50-row">
@@ -526,13 +534,13 @@ export class projectDeteils extends Component {
                       title={translate("offerredContractor")}
                       columns={[
                         {
-                          title: translate("Project_ID"),
-                          field: "Project_ID",
+                          title: translate("loginContractor"),
+                          field: "LoginContractor",
                           editable: "never",
                         },
                         {
-                          title: translate("loginContractor"),
-                          field: "LoginContractor",
+                          title: translate("descriptionProject"),
+                          field: "description",
                           editable: "never",
                         },
                         {
@@ -600,11 +608,6 @@ export class projectDeteils extends Component {
                     tableRef={tableRefInfoList}
                     title={translate("ListWork")}
                     columns={[
-                      {
-                        title: translate("Project_ID"),
-                        field: "Project_ID",
-                        editable: "never",
-                      },
                       {
                         title: translate("DateCreation"),
                         field: "DateCreation",

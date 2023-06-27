@@ -114,6 +114,7 @@ export class project extends Component {
           "ProjectClosingDate",
           "FullBuldingAdress",
           "Status",
+          "description",
         ],
         id: this.props.getState().user.userId,
       };
@@ -158,14 +159,8 @@ export class project extends Component {
               editable: "never",
             },
             {
-              title: translate("ContractorPhoneNumberm"),
-              field: "ContractorPhoneNumberm",
-              editable: "never",
-            },
-            {
-              title: translate("ContractorEmail"),
-              field: "ContractorEmail",
-              editable: "never",
+              title: translate("description"),
+              field: "description",
             },
             {
               title: translate("CommonApproximateConstructionEstimate"),

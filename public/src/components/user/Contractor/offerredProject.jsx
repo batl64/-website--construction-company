@@ -116,15 +116,16 @@ export class offerredProject extends Component {
           title={translate("project")}
           columns={[
             {
-              title: translate("Project_ID"),
-              field: "Project_ID",
-              editable: "never",
-            },
-            {
               title: translate("loginAdmin"),
               field: "LoginAdministrator",
               editable: "never",
             },
+            {
+              title: translate("descriptionProject"),
+              field: "description",
+              editable: "never",
+            },
+
             {
               title: translate("contractorSuggestedPrice"),
               field: "ContractorSuggestedPrice",
